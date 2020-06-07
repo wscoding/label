@@ -11,6 +11,9 @@ if ($username!="" and $password!="" and $wen!="") {
         $json_string = file_get_contents($filename);
         $datas = json_decode($json_string, true);
         $wens = $datas['wen'];
+        $datas['password'] = $password;
+        $json = json_encode($datas);
+        file_put_contents($filename, $json);
         if ($wen==$wens) {
             //口令正确，返回数据
             $data['status']="YES";

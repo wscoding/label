@@ -609,17 +609,24 @@ var _hmt = _hmt || [];
 	        layer.alert("读取模板信息出错，请刷新重载！", {title:"发现错误",icon: 5});
 	        return;//------如果为空，阻止函数继续往下执行----
 	    } else {
-		    var user = $.cookie('user');
-			$.post("upmod.php",{user:user,modid:$("#modid").val(),modstr:$("#textarea").val()},function(getup,status){
-	        	getup = JSON.parse(getup);
-	        	if (getup.status == "YES") {
-	        		layer.alert(getup.message);
-	        		getmod();
-	        		$('#moddivs').modal('toggle');
-	        	}else{
-	        		layer.alert(getup.message, {title:"保存模板失败",icon: 5});
-	        	} 
-	        });
+				layer.msg('你确定保存或更新此模板吗？', {
+				  time: 0 //不自动关闭
+				  ,btn: ['配置更新', '取消返回']
+				  ,yes: function(index){
+				    layer.close(index);
+				    var user = $.cookie('user');
+					$.post("upmod.php",{user:user,modid:$("#modid").val(),modstr:$("#textarea").val()},function(getup,status){
+			        	getup = JSON.parse(getup);
+			        	if (getup.status == "YES") {
+			        		layer.alert(getup.message);
+			        		getmod();
+			        		$('#moddivs').modal('toggle');
+			        	}else{
+			        		layer.alert(getup.message, {title:"保存模板失败",icon: 5});
+			        	} 
+			        });
+				  }
+				});
 	    }
 	}
 
