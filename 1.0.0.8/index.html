@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="favicon.ico"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Label,标签设计打印,条形码设计打印,条码批量在线打印,条码标签批量打印" />
+    <meta name="description" content="JMW-Label·标签设计打印工具，本工具由天际科技·筑梦司网络工作室开发制作，支持快速自定义纸张大小的标签设计打印，导入Excel表格数组绑定字段名可支持批量数据打印" />
+    <meta name="baidu-site-verification" content="Pr19HUbbxc" />
+    <title>JMW-Label·标签设计打印</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- hiprint -->
+    <link href="../css/hiprint.css" rel="stylesheet">
+    <link href="../css/print-lock.css" rel="stylesheet">
+    <link href="../css/print-lock.css" media="print" rel="stylesheet">
+  </head>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?bd0ee8f5df756afb0e40c3e3e796e5cd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<body>
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+		      <div class="container-fluid">
+		        <div class="navbar-header">
+		          <a class="navbar-brand" href="./" title="使用提示：&#10;1.内容输入框键入数据为单张打印时使用，单张打印时请删除字段名&#10;2.字段名为导入数据表格的标题头识别码，键入相应的数据标题头即可关联批量打印哦，批量打印时请删除内容输入框数据">JMW-Label·标签设计打印</a>
+		        </div>
+		        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+		          <ul class="nav navbar-nav">
+		            <li><a title="当前版本：V:1.0.0.8 &#10;&#10; 请注意：当前版本页面参数配置已关闭，暂时无法配置 &#10;&#10; 当前版本性能： &#10; 1.支持自由拖拽设计打印； &#10; 2.支持Excel表格导入数组批量打印； &#10;3.支持自定义组件大小&颜色；&#10; 4.自定义纸张大小；&#10; 5.登录账号云端获取及保存设计模板功能 &#10;&#10; 更多功能实现中： &#10; 1.对更大纸张的框架支持兼容； &#10; 2.导出PDF文件的功能实现； &#10; 3.常用设计模板内置一键调用； &#10; 4.常用模板数组自编功能； &#10; 5.打印预览功能实现 &#10;&#10; 温馨提示：建议您使用谷歌浏览器" onclick="bb();">V:1.0.0.8</a></li>
+		            <li><a title="本标签设计打印程序由：天际科技·筑梦司网络工作室开发制作 &#10;&#10; 更多建议及意见欢迎反馈给我们：wyhuangzhaoqiang@163.com &#10;&#10; 感谢以下插件&框架提供驱动支持： &#10;&#10; bootstrap3 前端框架 &#10;&#10; Hiprint 打印插件 &#10;&#10; 以及其他的一些重要插件···" onclick="gy();">关于</a></li>
+		            <li><a data-toggle="modal" data-target=".bs-example-modal-sm12">开发不易，如果您觉得好用，欢迎赞助我们</a></li>
+		          </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a>欢迎您：</a></li>
+                    <li><a id="userid" onclick="userid();">游客|登录</a></li>
+                    <li><a id="userup" onclick="userup();">注册</a></li>
+                    <li><a href="./say/" target="_blank">吐槽反馈</a></li>
+                    <li><a>.</a></li>
+                  </ul>
+		        </div>
+		      </div>
+		    </nav>
+		</div>
+	  <div class="col-md-2" style="padding-left:3%;padding-top:66px;">
+	  	<div style="width: 25rem;position: fixed;top: 7rem;left: 0.5rem;padding-right: 0.5rem;z-index: 9999;">
+			<div class="panel panel-primary" style="height:25vh;text-align:center;">
+			  <div class="panel-heading" title="拖拽下方控件到纸张画图区即可生成相应数据哦">内容控件</div>
+			  <div class="panel-body">
+					<div class="row">
+					  <div class="col-md-6">
+					  	<a class="ep-draggable-item" tid="testModule.text" style="font-size:0.8vw;">
+					  		<span class="glyphicon glyphicon-text-size" aria-hidden="true"></span><br> 文本
+					  	</a>
+					  </div>
+					  <div class="col-md-6">
+					  	<a class="ep-draggable-item" tid="testModule.image" style="font-size:0.8vw;">
+					  		<span class="glyphicon glyphicon-picture" aria-hidden="true"></span><br> 图片
+					  	</a>
+					  </div>
+					  <div class="col-md-12" style="height:2vh;"></div>
+					  <div class="col-md-6">
+					  	<a class="ep-draggable-item" tid="testModule.qrcode" style="font-size:0.8vw;">
+					  		<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span><br> 二维码
+					  	</a>
+					  </div>
+					  <div class="col-md-6">
+					  	<a class="ep-draggable-item" tid="testModule.barcode" style="font-size:0.8vw;">
+					  		<span class="glyphicon glyphicon-barcode" aria-hidden="true"></span><br> 条形码
+					  	</a>
+					  </div>
+					</div>
+			  </div>
+			</div>
+			<div class="panel panel-primary" style="height:25vh;text-align: center;">
+			  <div class="panel-heading" title="拖拽下方控件到纸张画图区即可生成相应数据哦">图形控件</div>
+			  <div class="panel-body">
+					<div class="row">
+					  <div class="col-md-6">
+					  	<a class="ep-draggable-item" tid="testModule.vline" style="font-size:0.8vw;">
+					  		<span class="glyphicon glyphicon-resize-vertical" aria-hidden="true"></span><br> 竖线
+					  	</a>
+					  </div>
+					  <div class="col-md-6">
+					  	<a class="ep-draggable-item" tid="testModule.hline" style="font-size:0.8vw;">
+					  		<span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span><br> 横线
+					  	</a>
+					  </div>
+					  <div class="col-md-12" style="height:2vh;"></div>
+					  <div class="col-md-6">
+					  	<a class="ep-draggable-item" tid="testModule.rect" style="font-size:0.8vw;">
+					  		<span class="glyphicon glyphicon-retweet" aria-hidden="true"></span><br> 矩形
+					  	</a>
+					  </div>
+					  <div class="col-md-6">
+					  	<a class="ep-draggable-item" tid="testModule.oval" style="font-size:0.8vw;">
+					  		<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><br> 圆形
+					  	</a>
+					  </div>
+					</div>
+			  </div>
+			</div>
+			<div class="panel panel-primary" style="height:30vh;text-align: center;">
+			  <div class="panel-heading">数组控件</div>
+			  <div class="panel-body">
+					<div class="row">
+					  <div class="col-md-12">
+					  	<button class="btn btn-default btn-block" type="file" style="font-size:0.7vw;" onchange="importf(this)">
+					  		<span class="glyphicon glyphicon-level-up" aria-hidden="true"></span><br> 导入
+					  		<input type="file" onchange="importf(this)"/>
+					  	</button>
+					  </div>
+					  <div class="col-md-12" style="height:0.3vh;"></div>
+					  <div class="col-md-12">
+					  	<p title="暂时同名数据导入后无法清空，保存模板刷新后重新导入或者表格改名后导入吧">数组导入结果预览</p>
+					  	<input  class="form-control" id="printDatas" disabled="disabled"/>
+					  </div>
+					  <div class="col-md-12" style="height:0.5vh;"></div>
+					  <div class="col-md-12">
+					  	<textarea class="form-control" id="textarea" style="display:none;"></textarea>
+					  	<input class="form-control" id="datas" type="hidden" disabled="disabled"/>
+					  </div>
+					</div>
+			  </div>
+			</div>
+		</div>
+	  </div>
+
+	  <div class="col-md-8" style="padding-top:66px;min-height:85vh;">
+	  	<div class="panel panel-primary" style="min-height:85vh;">
+		  <div class="panel-heading">效果画图区
+				<div class="btn-group" style="padding-left:3vw;">
+                    <button type="button" id="modbut" class="btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-lg" style="display:none;">模板文件</button>
+				  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+				    纸张 <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				  	<li class="dropdown-header">常用LABEL纸张规格：毫米</li>
+				    <li><a onclick="setPaper(100,150);customHeight.value=150;customWidth.value=100;">面单纸：100*150</a></li>
+				    <li><a onclick="setPaper(80,50);customHeight.value=50;customWidth.value=80;">库位纸：80*50</a></li>
+				    <li><a onclick="setPaper(58,27);customHeight.value=27;customWidth.value=58;">入库纸：58*27</a></li>
+				    <li role="separator" class="divider"></li>
+				    <li><button type="button" class="btn btn-warning btn-sm btn-block" onclick="rotatePaper()">旋转当前纸张方向</button></li>
+				    <li role="separator" class="divider"></li>
+				    <li class="dropdown-header">自定义纸张(高&宽)规格：MM</li>
+				    <li style="padding-top:5px"><input type="number" class="form-control" id="customHeight" placeholder="高度：MM" value="150"></li>
+				    <li style="padding-top:5px"><input type="number" class="form-control" id="customWidth" placeholder="宽度：MM" value="100"></li>
+				    <li style="padding-top:5px"><button type="button" class="btn btn-primary btn-sm btn-block" onclick="setPaper($('#customWidth').val(),$('#customHeight').val())">确定</button></li>
+				  </ul>
+				</div>
+				<button type="button" class="btn btn-danger" onclick="clearTemplate()" title="无法还原，谨慎操作"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>  清空</button>
+				<button type="button" class="btn btn-danger"  onclick="directPrint()" title="出现空白时请注意检查内容&字段是否设置正确"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>  单张打印</button>
+				<button type="button" class="btn btn-warning" id="button_print" title="出现空白时请注意检查字段是否设置正确&#10;数据是否导入正常"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>  批量打印</button>
+				<!--<button type="button" class="btn btn-danger"  onclick="Printpdf()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>  导出PDF</button>-->
+		  </div>
+		  <!--<div class="hiprint-printPagination"></div>-->
+		  <div class="panel-body">
+		    <div id="hiprint-printTemplate" class="hiprint-printTemplate"></div>
+		  </div>
+		</div>
+	  </div>
+
+	  <div class="col-md-2" style="padding-top:66px;min-height:85vh;">
+	  	<div style="width: 25rem;position: fixed;top: 7rem;right: 0.5rem;padding-left: 0.5rem; z-index: 9999;">
+			<div class="panel panel-primary" style="min-height:85vh;">
+			  <div class="panel-heading" style="text-align:center;" title="请注意：当前版本纸张页面参数配置已关闭，暂时无法配置">参数配置</div>
+			  <div class="panel-body">
+				<div class="row">
+				    <div class="col-sm-12">
+				        <div id="PrintElementOptionSetting" style="margin-top:10px;">
+				        	<div class="hiprint-option-items">配置参数界面</div>
+				        </div>
+				    </div>
+			    </div>
+			  </div>
+		    </div>
+		</div>
+	</div>
+
+<div class="modal fade bs-example-modal-lg" id="moddivs" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">JMW-Label·标签设计打印-----模板类操作</h4>
+      </div>
+	      <div class="modal-body">
+	            <p class="text-danger">我的模板(点选名称后点击【载入】按钮加载)</p>
+	            <div id="moddiv"></div>
+	            <p class="text-success">温馨提示：点选名称后点击【配置】按钮保存或更新模板哦</p>
+	            <div class="form-group">
+	                <label for="exampleInputEmail1">点选或在下方输入框键入您要载入或命名的模板名称<span style="color:red;">点击不同功能按钮选取你要操作的功能</span></label>
+	                <input type="text" class="form-control" id="modid" aria-describedby="helpBlock2" required autofocus autocomplete="off">
+	            </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" onclick="get_old();">删除/禁用</button><span>←···→</span>
+	        <button type="button" class="btn btn-primary" onclick="get_up();">配置/更新</button><span>←···→</span>
+	        <button type="button" class="btn btn-success" onclick="getjson();">载入模板</button><span>←···→</span>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">退出</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="login" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+	    <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="exampleModalLabel">账号登陆</h4>
+	    </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">账号:</label>
+	            <input type="text" class="form-control" id="username" required="required" autofocus autocomplete="off" onkeydown="if(event.keyCode==13){password.focus();};"/>
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">密码:</label>
+	            <input type="password" class="form-control" id="password" required="required" autofocus autocomplete="off" onkeydown="if(event.keyCode==13){login();};"/>
+	          </div>
+	          <div style="text-align: right;"><a onclick="$('#usermm').modal('show');$('#login').modal('toggle');">忘记密码</a></div>
+	        </form>
+	      </div>
+	    <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	        <button type="button" class="btn btn-primary" onclick="login();">登录</button>
+	    </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="register" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+	    <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="exampleModalLabel">账号注册</h4>
+	    </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">账号:（英文+数字）</label>
+	            <input type="text" class="form-control" id="usernamet" required="required" autofocus autocomplete="off" onkeydown="if(event.keyCode==13){password.focus();};"/>
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">密码:（英文+数字）</label>
+	            <input type="password" class="form-control" id="passwordt" required="required" autofocus autocomplete="off" onkeydown="if(event.keyCode==13){wen.focus();};"/>
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">验证口令（找回密码用）:</label>
+	            <input type="text" class="form-control" id="wen" required="required" autofocus autocomplete="off" onkeydown="if(event.keyCode==13){register();};"/>
+	          </div>
+	        </form>
+	      </div>
+	    <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	        <button type="button" class="btn btn-primary" onclick="register();">注册</button>
+	    </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="usermm" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+	    <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="exampleModalLabel">找回&修改密码</h4>
+	    </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">您的账号:（原注册账户名）</label>
+	            <input type="text" class="form-control" id="usid" required="required" autofocus autocomplete="off" onkeydown="if(event.keyCode==13){usmm.focus();};"/>
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">设置新密码:（英文+数字）</label>
+	            <input type="password" class="form-control" id="usmm" required="required" autofocus autocomplete="off" onkeydown="if(event.keyCode==13){went.focus();};"/>
+	          </div>
+	          <div class="form-group">
+	            <label for="recipient-name" class="control-label">验证问题（您注册时设置的验证口令）:</label>
+	            <input type="text" class="form-control" id="went" required="required" autofocus autocomplete="off" onkeydown="if(event.keyCode==13){zhmm();};"/>
+	          </div>
+	        </form>
+	      </div>
+	    <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	        <button type="button" class="btn btn-primary" onclick="zhmm();">找回&修改</button>
+	    </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm12" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document" style="text-align:center;">
+    <div class="modal-content">
+      <p>开发不易，一分也是爱，好人一生平安(●'◡'●)</p>
+      <img src="m.jpg">
+    </div>
+  </div>
+</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="../js/jquery.cookie.min.js"></script>
+
+    <!-- 加载 hiprint JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="../plugins/jquery.minicolors.min.js"></script>
+    <script src="../js/hiprint.bundle.js"></script>
+    <!-- polyfill.min.js解决浏览器兼容性问题v6.26.0-->
+    <script src="../js/polyfill.min.js"></script>
+    <!-- hiprint 核心js-->
+    <script src="../js/hiprint.bundle.js"></script>
+    <!-- 条形码生成组件-->
+    <script src="../plugins/JsBarcode.all.min.js"></script>
+    <!-- 二维码生成组件-->
+    <script src="../plugins/qrcode.js"></script>
+    <!-- 调用浏览器打印窗口helper类，可自行替换-->
+    <script src="../plugins/jquery.hiwprint.js"></script>
+	<!-- EXCEL读取转JSON 组件-->
+    <script src='../js/xlsx.full.min.js'></script>
+	<!-- 设置项配置文件-->
+	<script src="../js/hiprint.config.js"></script>
+
+    <!--配置模板文件-->
+    <script src="../custom_test/custom-etype-provider.js"></script>
+    <!--layer-->
+    <script src="../layer/layer.js"></script>
+    
+    <script>
+        var hiprintTemplate;
+        $(document).ready(function () {
+           var customPrintJson = {"panels": [{"index": 0,"height": 150,"width": 100,"paperHeader": 0,"paperFooter": 0,"paperNumberDisabled":true,"paperNumberFormat":"paperCount","printElements": ""}]}
+            //初始化打印插件
+            hiprint.init({ providers: [new customElementTypeProvider()] });
+
+            //hiprint.PrintElementTypeManager.build('.hiprintEpContainer', 'testModule');
+            //设置左侧拖拽事件
+            hiprint.PrintElementTypeManager.buildByHtml($('.ep-draggable-item'));
+
+            hiprintTemplate = new hiprint.PrintTemplate({
+                template: customPrintJson,
+                settingContainer: '#PrintElementOptionSetting',
+                paginationContainer: '.hiprint-printPagination'
+            });
+            //打印设计
+            hiprintTemplate.design('#hiprint-printTemplate');
+
+            var userAgent = navigator.userAgent;// 取得浏览器的userAgent字符串
+
+            var isWebKit =  navigator.userAgent.indexOf('WebKit') > -1  // 是否是WebKit 内核 
+		    console.log('谷歌内核'+ isWebKit)  // 返回 true  则是，false  则不是
+
+		    var isChrome =  navigator.userAgent.indexOf('Chrome') > -1  // 是否是谷歌 
+		    console.log('谷歌'+ isChrome)  // 返回 true  则是 ，false  则不是
+
+		    var isFirefox =  navigator.userAgent.indexOf('Firefox') > -1  // 是否是火狐  ，火狐内核Gecko 
+		    console.log('火狐'+ isFirefox)  // 返回 true  则是 ，false  则不是
+
+		    if (isWebKit == false) {
+		    	layer.msg('建议您使用谷歌浏览器！', {icon: 5});
+		    }
+
+		    if (isFirefox == true) {
+		    	layer.msg('建议您使用【谷歌浏览器】！<br><br>当前使用的【火狐浏览器】可能出现问题：<br>1.因转置问题可能出现内容偏移！<br>2.暂时无法打印预览！', {icon: 5});
+		    }
+        });
+
+        //调整纸张
+        var setPaper = function (paperTypeOrWidth, height) {
+            hiprintTemplate.setPaper(paperTypeOrWidth, height);
+        }
+
+        //清空
+        var clearTemplate = function () {
+            hiprintTemplate.clear();
+        }
+
+		//旋转
+        var rotatePaper = function () {
+            hiprintTemplate.rotatePaper();
+        }
+
+        //生成JSON
+	    var getJsonTid = function () {
+	        $('#textarea').html(JSON.stringify(hiprintTemplate.getJsonTid()))
+	    }
+
+        //直接调用浏览器的打印
+        var directPrint = function () {
+            getJsonTid();//先生成JSON
+            hiprintTemplate.print();
+        }
+
+        //批量打印
+        $('#button_print').click(function () {
+        	getJsonTid();//先生成JSON
+            var hiprintTemplate = new hiprint.PrintTemplate({ template: JSON.parse($('#textarea').val()) });
+            //var printData=[{"text":'测试1',barcode:'A001',image:'001.jpg'},{text:'测试2',barcode:'A002',image:'002.jpg'},{text:'测试3',barcode:'A003',image:'003.jpg'}];
+            //hiprintTemplate.print(printData);
+            var printData=document.getElementById('printDatas').value;
+			var obj=eval(printData); 
+            hiprintTemplate.print(obj);
+        });
+    </script>
+  </body>
+</html>
+<script type="text/javascript">
+	$(document).ready(function(){
+	  var user = $.cookie('user');
+		if (user != null) {
+    		$("#userup").html("登出");
+    		$("#userid").html(user);
+    		document.getElementById("modbut").style.display="inline";
+    		getmod();
+		}
+
+		$("#modbut").click(function(){
+			document.getElementById('modid').value="";
+		});
+	});
+
+	function userid(){
+		var user = $.cookie('user');
+		if (user == null) {
+			document.getElementById('username').value="";
+		    document.getElementById('password').value="";
+			$('#login').modal('show');
+		}
+	}
+
+	function userup(){
+		var user = $.cookie('user');
+		if (user != null) {
+			$.removeCookie('user'); //删除cookie
+			$("#userid").html("游客|登录");
+			$("#userup").html("注册");
+			window.location.reload();//刷新当前页面
+		} else {
+			document.getElementById('usernamet').value="";
+		    document.getElementById('passwordt').value="";
+		    document.getElementById('wen').value="";
+			$('#register').modal('show');
+		}
+	}
+
+	function login(){
+		var usernames = document.getElementById('username').value;
+	    var passwords = document.getElementById('password').value;
+	    if (usernames.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，账号内容不能为空！", {title:"发现错误",icon: 5});
+	        username.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else if (passwords.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，密码内容不能为空！", {title:"发现错误",icon: 5});
+	        password.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else {
+		    $.post("login.php",{username:usernames,password:passwords},function(datalogin,status){
+		        	objlogin = JSON.parse(datalogin);
+		        	if (objlogin.status == "YES") {
+		        		layer.alert(objlogin.message);
+		        		$('#login').modal('toggle');
+		        		$("#userup").html("登出");
+		        		$("#userid").html(usernames);
+		        		$.cookie('user', usernames);
+		        		document.getElementById("modbut").style.display="inline";
+		        		getmod();
+		        	}else{
+		        		layer.alert(objlogin.message, {title:"登录失败",icon: 5});
+		        	} 
+		        });
+	    }
+	}
+
+	function register(){
+		var usernamest = document.getElementById('usernamet').value;
+	    var passwordst = document.getElementById('passwordt').value;
+	    var wens = document.getElementById('wen').value;
+	    if (usernamest.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，账号内容不能为空！", {title:"发现错误",icon: 5});
+	        usernamet.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else if (passwordst.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，密码内容不能为空！", {title:"发现错误",icon: 5});
+	        passwordt.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else if (wens.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，验证口令不能为空！", {title:"发现错误",icon: 5});
+	        wen.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else {
+		    $.post("register.php",{username:usernamest,password:passwordst,wen:wens},function(register,status){
+		        	objregister = JSON.parse(register);
+		        	if (objregister.status == "YES") {
+		        		layer.alert(objregister.message);
+		        		$('#register').modal('toggle');
+		        		$("#userup").html("登出");
+		        		$("#userid").html(usernamest);
+		        		$.cookie('user', usernamest);
+		        		document.getElementById("modbut").style.display="inline";
+		        		getmod();
+		        	}else{
+		        		layer.alert(objregister.message, {title:"注册失败",icon: 5});
+		        	} 
+		        });
+	    }
+	}
+
+	function zhmm(){
+		var usid = document.getElementById('usid').value;
+	    var usmm = document.getElementById('usmm').value;
+	    var went = document.getElementById('went').value;
+	    if (usid.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，账号内容不能为空！", {title:"发现错误",icon: 5});
+	        usid.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else if (usmm.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，密码内容不能为空！", {title:"发现错误",icon: 5});
+	        usmm.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else if (went.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，验证口令不能为空！", {title:"发现错误",icon: 5});
+	        went.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else {
+		    $.post("zhmm.php",{username:usid,password:usmm,wen:went},function(register,status){
+		        	objregister = JSON.parse(register);
+		        	if (objregister.status == "YES") {
+		        		layer.alert(objregister.message);
+		        		$('#usermm').modal('toggle');
+		        		$("#userup").html("登出");
+		        		$("#userid").html(usid);
+		        		$.cookie('user', usid);
+		        		document.getElementById("modbut").style.display="inline";
+		        		getmod();
+		        	}else{
+		        		layer.alert(objregister.message, {title:"找回&修改密码失败",icon: 5});
+		        	} 
+		        });
+	    }
+	}
+
+	function getmod(){
+		var user = $.cookie('user');
+		$.post("getmod.php",{user:user},function(getmod,status){
+        	getmods = JSON.parse(getmod);
+        	if (getmods.status == "YES") {
+        		$('#moddiv').html('');
+        		for (var i = 0; i < getmods.mod.length; i++) {
+	                var team = $('<div class="btn-group" role="group" aria-label="..."></div>');
+	                team.append('<div style="padding-left: 5px;padding-right: 5px;padding-top: 5px;padding-bottom: 5px;"><a class="btn btn-success" role="button" onclick="modid.value=\'' + getmods.mod[i].id + '\';">' + getmods.mod[i].id + '</a></div>');
+	                $('#moddiv').append(team);
+	            }
+        	}else{
+        		$("#moddiv").html('<button type="button" class="btn btn-default">您还没有添加模板呢亲</button>');
+        	} 
+        });
+	}
+
+	function getjson(){
+		var modidst = document.getElementById('modid').value;
+		if (modidst.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，模板名称内容不能为空！", {title:"发现错误",icon: 5});
+	        modid.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else {
+		    var user = $.cookie('user');
+			$.post("getjson.php",{user:user,mod:$("#modid").val()},function(getjson,status){
+	        	getjsons = JSON.parse(getjson);
+	        	if (getjsons.status == "YES") {
+	        		$('#hiprint-printTemplate').html('');
+					hiprintTemplate = new hiprint.PrintTemplate({
+						template: JSON.parse(getjsons.mod),
+						settingContainer: '#PrintElementOptionSetting'
+					});
+					//打印设计
+					hiprintTemplate.design('#hiprint-printTemplate');
+
+		            $('#moddivs').modal('toggle');
+	        	}else{
+	        		layer.alert(getjsons.message, {title:"载入失败",icon: 5});
+	        		$('#moddivs').modal('toggle');
+	        	} 
+	        });
+	    }
+	}
+
+	function get_up(){
+		getJsonTid();//先生成JSON
+		var modidstr = document.getElementById('modid').value;
+		var modstr = document.getElementById('textarea').value;
+		if (modidstr.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，模板名称内容不能为空！", {title:"发现错误",icon: 5});
+	        modid.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else if (modstr.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("读取模板信息出错，请刷新重载！", {title:"发现错误",icon: 5});
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else {
+		    var user = $.cookie('user');
+			$.post("upmod.php",{user:user,modid:$("#modid").val(),modstr:$("#textarea").val()},function(getup,status){
+	        	getup = JSON.parse(getup);
+	        	if (getup.status == "YES") {
+	        		layer.alert(getup.message);
+	        		getmod();
+	        		$('#moddivs').modal('toggle');
+	        	}else{
+	        		layer.alert(getup.message, {title:"保存模板失败",icon: 5});
+	        	} 
+	        });
+	    }
+	}
+
+	function get_old(){
+		var modidstr = document.getElementById('modid').value;
+		if (modidstr.replace(/(^\s*)|(\s*$)/g, "") == "") {  //----判断是否为空或者空格---
+	        layer.alert("请注意，模板名称内容不能为空！", {title:"发现错误",icon: 5});
+	        modid.focus();
+	        return;//------如果为空，阻止函数继续往下执行----
+	    } else {
+	    	layer.msg('你确定删除【禁用】此模板吗？', {
+			  time: 0 //不自动关闭
+			  ,btn: ['我意已决', '留它一命']
+			  ,yes: function(index){
+			    layer.close(index);
+			    var user = $.cookie('user');
+				$.post("getold.php",{user:user,modid:$("#modid").val()},function(old,status){
+		        	old = JSON.parse(old);
+		        	if (old.status == "YES") {
+		        		layer.alert(old.message);
+		        		getmod();
+		        		$('#moddivs').modal('toggle');
+		        	}else{
+		        		layer.alert(old.message, {title:"删除模板失败",icon: 5});
+		        	} 
+		        });
+			  }
+			});
+	    }
+	}
+//excel转json--开始
+    function importf(obj) {
+        if(!obj.files) {
+            return;
+        }
+        var f = obj.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var data = e.target.result;
+                wb = XLSX.read(data, {
+                    type: 'binary'
+                });
+            var printDatast = JSON.stringify( XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]) );
+            document.getElementById("printDatas").value = printDatast;
+        };
+            reader.readAsBinaryString(f);
+    }
+
+    function fix(data) { 
+        var o = "",
+            l = 0,
+            w = 10240;
+        for(; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
+        o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+        return o;
+    }
+//excel转json--开始
+//屏蔽右键--开始
+	document.onkeydown = function() {//F12
+        var e = window.event || arguments[0];
+        if (e.keyCode == 123) {
+            return false;
+        }
+    }
+    document.oncontextmenu = function() {//右键
+        return false;
+    }
+    document.onkeydown = function() {
+        if ((e.ctrlKey) && (e.keyCode == 83)) { //ctrl+s
+            return false;
+        }
+    }
+    document.onkeydown = function() {
+        var e = window.event || arguments[0];
+        //屏蔽F12
+        if(e.keyCode == 123) {
+            return false;
+            //屏蔽Ctrl+Shift+I
+        } else if((e.ctrlKey) && (e.shiftKey) && (e.keyCode == 73)) {
+            return false;
+            //屏蔽Shift+F10
+        } else if((e.shiftKey) && (e.keyCode == 121)){
+            return false;
+        }
+    };
+//屏蔽右键--结束
+//点击提示--开始
+	function bb(){
+		layer.open({
+			type: 1,
+			shade: false,
+			title: false, //不显示标题
+			content: ('当前版本：<strong>V:1.0.0.8</strong> <br><br> 请注意：当前版本页面参数配置已关闭，暂时无法配置 <br><br> 当前版本性能： <br> 1.支持自由拖拽设计打印； <br> 2.支持Excel表格导入数组批量打印； <br>3.支持自定义组件大小&颜色；<br> 4.自定义纸张大小；<br> 5.登录账号云端获取及保存设计模板功能 <br><br> 更多功能实现中： <br> 1.对更大纸张的框架支持兼容； <br> 2.导出PDF文件的功能实现； <br> 3.常用设计模板内置一键调用； <br> 4.常用模板数组自编功能； <br> 5.打印预览功能实现 <br><br> 温馨提示：建议您使用谷歌浏览器')
+		});
+	}
+
+	function gy(){
+		layer.open({
+			type: 1,
+			shade: false,
+			title: false, //不显示标题
+			content: ('关于我们：<br><br>本标签设计打印程序由：<br><strong><ins>天际科技·筑梦司网络工作室开发制作</ins></strong> <br><br> 更多建议及意见欢迎反馈给我们：<strong><ins>wyhuangzhaoqiang@163.com</ins></strong> <br><br> 感谢以下插件&框架提供驱动支持： <br><br> <strong><ins>bootstrap3 前端框架</ins></strong> <br> <strong><ins>Hiprint 打印插件</ins></strong> <br> <strong><ins>Layer 提示插件</ins></strong> <br><br> 以及其他的一些重要插件···')
+		});
+	}
+</script>
